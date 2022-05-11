@@ -1,0 +1,52 @@
+.drinkCard {
+  padding: 0.8rem;
+  border-radius: 20px;
+}
+
+.drinkCard img {
+  border-radius: 20px;
+  height: 10rem;
+  width: 100%;
+}
+
+.drinkCard ion-card-title {
+  color: #fff;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+.drinkCard ion-card-subtitle {
+  color: rgb(202, 211, 189);
+}
+.drinkCard ion-icon {
+  color: rgb(202, 211, 189);
+}
+.drinkPrice {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  margin-top: -0.2rem;
+}
+
+.drinkAddButton {
+  color: var(--ion-color-main) !important;
+  margin-top: 0.5rem;
+}
+
+.drinkCardLong img {
+  border-radius: 20px;
+  height: 5rem !important;
+  width: 100%;
+}
+
+.drinkCardLongDetails {
+  margin-left: 1rem;
+  margin-top: -0.7rem;
+}
+
+.drinkCardLongDetails p {
+  font-size: 0.8rem;
+  margin: 0;
+  margin-top: 0.2rem;
+}

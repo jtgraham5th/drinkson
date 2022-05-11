@@ -1,0 +1,29 @@
+.figure {
+  padding: 0rem;
+}
+
+.figure h6 {
+  font-size: 1.5rem;
+  font-weight: 200;
+  margin-top: 0.8rem;
+  margin-bottom: 0.7rem;
+}
+
+.figure p {
+  color: rgb(255, 255, 255);
+  font-size: 0.9rem;
+  font-weight: 200;
+}
+
+.figure:nth-child(1) {
+  background-color: rgb(94, 21, 22);
+}
+
+.figure:nth-child(2) {
+  background-color: rgb(87, 13, 19);
+}
+
+.figure:nth-child(3) {
+  background-color: rgb(72, 1, 1);
+  
+}
