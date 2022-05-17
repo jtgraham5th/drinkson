@@ -20,20 +20,20 @@
 }
 
 .avatar {
-    width: 6rem;
-    height: 5rem;
-    background-color: #000;
-    // border: 1px solid rgba(218, 223, 208, 0.4);
-  
-    // img{
+  width: 6rem;
+  height: 5rem;
+  background-color: #000;
+  // border: 1px solid rgba(218, 223, 208, 0.4);
 
-        // border-radius: 10px;
-    // }
+  // img{
+
+  // border-radius: 10px;
+  // }
 }
 // .profileHeader {}
 
 .profileStats {
-    display: flex;
+  display: flex;
   background-color: rgb(245, 245, 245);
   border-radius: 10px !important;
   padding: 0.2rem;
@@ -54,11 +54,11 @@
     font-size: 0.6rem;
   }
 }
-.profileInfoContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 1rem;
+.profileInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 1rem;
 }
 .profileInfo {
   text-align: left;
@@ -69,7 +69,7 @@
 }
 
 .profileName {
-  color: #FFF;
+  color: #fff;
   font-weight: 500 !important;
 }
 
