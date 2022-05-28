@@ -1,25 +1,29 @@
+.background{
+  background-color: var(--ion-background-color);
+}
+
 .drinkCard {
   padding: 0.8rem;
   border-radius: 20px;
+
+  img {
+    border-radius: 20px;
+    height: 10rem;
+    width: 100%;
+  }
+  ion-card-title {
+    color: #fff;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+  }
+  ion-card-subtitle {
+    color: rgb(202, 211, 189);
+  }
+  ion-icon {
+    color: rgb(202, 211, 189);
+  }
 }
 
-.drinkCard img {
-  border-radius: 20px;
-  height: 10rem;
-  width: 100%;
-}
-
-.drinkCard ion-card-title {
-  color: #fff;
-  margin-top: 1rem;
-  font-size: 1rem;
-}
-.drinkCard ion-card-subtitle {
-  color: rgb(202, 211, 189);
-}
-.drinkCard ion-icon {
-  color: rgb(202, 211, 189);
-}
 .drinkPrice {
   display: flex;
   flex-direction: row;

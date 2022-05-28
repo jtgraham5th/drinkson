@@ -1,13 +1,11 @@
 import {
   IonCard,
-  IonCardSubtitle,
   IonCardTitle,
   IonCol,
   IonRow,
 } from "@ionic/react";
-import { Plus } from "react-iconly";
 
-import styles from "./DrinkCard.module.css";
+import styles from "./DrinkCard.module.scss";
 
 const OfferCard = (props) => {
   const { offer } = props;

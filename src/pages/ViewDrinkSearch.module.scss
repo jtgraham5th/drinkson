@@ -1,0 +1,16 @@
+.searchItem {
+  padding: 1rem;
+
+  img {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 10px;
+  }
+}
+.fullView {
+  --border-radius: 20px;
+}
+.searchActions {
+  display: flex;
+  flex-direction: column;
+}

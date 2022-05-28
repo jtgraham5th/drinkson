@@ -1,4 +1,4 @@
-import { IonCol, useIonRouter } from "@ionic/react";
+import { IonCol } from "@ionic/react";
 import styles from "./Figure.module.css";
 
 export const Figure = (props) => {

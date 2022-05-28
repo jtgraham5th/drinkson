@@ -12,6 +12,7 @@ import { useRef } from "react";
 import { bag } from "ionicons/icons";
 import { addToCart } from "../store/CartStore";
 import "../pages/Home.module.scss";
+import styles from "./DrinkCard.module.scss";
 
 const ViewDrinkCard = (props) => {
   const { drink, cartRef } = props;
@@ -23,7 +24,7 @@ const ViewDrinkCard = (props) => {
 
     drinkCartRef.current.style.display = "";
     drinkCartRef.current.classList.add("animate__fadeOutUp");
-    const newDrink = {drinkID: drinkID, drinkSizeID: 2}
+    const newDrink = { drinkID: drinkID, drinkSizeID: 2 };
     setTimeout(() => {
       cartRef.current.classList.add("animate__tada");
       addToCart(newDrink);
@@ -35,15 +36,18 @@ const ViewDrinkCard = (props) => {
   };
 
   return (
-    <IonRow key={drink.id} className="animate__animated animate__fadeIn">
+    <IonRow
+      key={drink.id}
+      className={`animate__animated animate__fadeIn ${styles.background}`}
+    >
       <IonCol size="6">
-        <IonCard className="drink-card">
+        <IonCard className={styles.drinkCard}>
           <img src={drink.image} alt="drink type" />
           <IonCardTitle className="custom-margin-left">
             {drink.name}
           </IonCardTitle>
           <IonCardSubtitle className="custom-margin-left">
-            {drink.summary}
+            {drink.summary || drink.category}
           </IonCardSubtitle>
         </IonCard>
       </IonCol>
@@ -52,8 +56,19 @@ const ViewDrinkCard = (props) => {
         size="6"
         className="ion-margin-top ion-padding-top ion-padding-end"
       >
-        <IonCardSubtitle>Description</IonCardSubtitle>
-        <p>{drink.description}</p>
+        {drink.description ? (
+          <>
+            <IonCardSubtitle>Description</IonCardSubtitle>
+            <p>{drink.description}</p>
+          </>
+        ) : (
+          <>
+            <IonCardSubtitle>Ingredients</IonCardSubtitle>
+            {drink.ingredients.map((ingredient, i) => (
+              <h6 key={i}>{ingredient}</h6>
+            ))}
+          </>
+        )}
 
         <IonRow className="ion-justify-content-between">
           <IonCol size="8">
@@ -72,7 +87,6 @@ const ViewDrinkCard = (props) => {
               expand="block"
               onClick={(e) => addDrinkToCart(e, drink.id)}
             >
-              {/* <Bag set="bold" /> */}
               <IonIcon size="large" icon={bag} />
             </IonButton>
 

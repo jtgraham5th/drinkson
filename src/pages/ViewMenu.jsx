@@ -66,7 +66,7 @@ const ViewMenu = (props) => {
             </div>
           </IonButtons>
 
-          <IonTitle>Full Menu</IonTitle>
+          <IonTitle>View Full Menu</IonTitle>
 
           <IonButtons slot="end">
             <div
@@ -83,20 +83,6 @@ const ViewMenu = (props) => {
       </IonHeader>
 
       <IonContent fullscreen>
-        <IonHeader
-          collapse="condense"
-          className="custom-margin-left animate__animated animate__fadeIn"
-        >
-          <IonToolbar className="inner-toolbar">
-            <IonRow className="ion-no-padding ion-no-margin">
-              <IonCol size="9" className="ion-no-padding ion-no-margin">
-                <h1 className="main-heading">View Full Range</h1>
-                <IonCardSubtitle>Our range of succulent drink</IonCardSubtitle>
-              </IonCol>
-            </IonRow>
-          </IonToolbar>
-        </IonHeader>
-
         <IonGrid>
           <IonRow className="search-container animate__animated animate__fadeIn">
             <IonCol size="12">
@@ -105,7 +91,7 @@ const ViewMenu = (props) => {
                 id="searchbar"
                 ref={searchRef}
                 searchIcon={searchSharp}
-                placeholder="Try 'Cappuccino'"
+                placeholder="Try 'Cap8uccino'"
               />
             </IonCol>
           </IonRow>

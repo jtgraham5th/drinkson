@@ -2,7 +2,7 @@ import { IonCard, IonCardSubtitle, IonCardTitle, IonCol, IonIcon } from "@ionic/
 // import { ArrowRightSquare } from "react-iconly";
 import { caretForwardCircle } from "ionicons/icons";
 
-import styles from "./DrinkCard.module.css";
+import styles from "./DrinkCard.module.scss";
 
 const DrinkCard = (props) => {
   const { drink } = props;

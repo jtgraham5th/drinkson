@@ -2,17 +2,17 @@ import { Store } from "pullstate";
 
 const FavoriteStore = new Store({
   total: 0,
-  coffee_ids: [],
+  drink_ids: [],
 });
 
 export default FavoriteStore;
 
-export const addToFavorites = (coffeeID) => {
+export const addToFavorites = (drinkID) => {
   FavoriteStore.update((s) => {
-    if (s.coffee_ids.find((id) => id === parseInt(coffeeID))) {
-      s.coffee_ids = s.coffee_ids.filter((id) => id !== parseInt(coffeeID));
+    if (s.drink_ids.find((id) => id === parseInt(drinkID))) {
+      s.drink_ids = s.drink_ids.filter((id) => id !== parseInt(drinkID));
     } else {
-      s.coffee_ids = [...s.coffee_ids, parseInt(coffeeID)];
+      s.drink_ids = [...s.drink_ids, parseInt(drinkID)];
     }
   });
 };

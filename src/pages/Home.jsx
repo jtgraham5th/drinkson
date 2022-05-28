@@ -1,7 +1,4 @@
 import {
-  IonAvatar,
-  IonCardTitle,
-  IonCardSubtitle,
   IonCol,
   IonContent,
   IonGrid,
@@ -13,7 +10,6 @@ import {
   IonTitle,
   IonToolbar,
   useIonRouter,
-  IonIcon,
   IonButton,
 } from "@ionic/react";
 import { searchSharp } from "ionicons/icons";
@@ -51,13 +47,18 @@ const Home = () => {
           </IonRow>
 
           <IonRow>
-          <IonCol size="12">
-            <IonButton color="main" fill="outline" expand="block">
-              Make Your Own Drink
-            </IonButton>
+            <IonCol size="12">
+              <IonButton
+                color="main"
+                fill="outline"
+                expand="block"
+                onClick={() => router.push("/create")}
+              >
+                Make Your Own Drink
+              </IonButton>
             </IonCol>
           </IonRow>
-          
+
           <IonRow className="outer-heading ion-justify-content-between ion-align-items-center">
             <h4 className="heading">Popular</h4>
 
@@ -70,7 +71,7 @@ const Home = () => {
             {drinks.map((drink) => {
               if (drink.id <= 2) {
                 return <DrinkCard key={drink.id} drink={drink} />;
-              }
+              } else return null;
             })}
           </IonRow>
 

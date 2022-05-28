@@ -77,7 +77,7 @@ http://ionicframework.com/docs/theming/ */
 
   /** custom **/
   --ion-color-main: #fff8db;
-  --ion-color-main-rgb: 87, 13, 19;
+  --ion-color-main-rgb: rgb(87, 13, 19);
   --ion-color-main-contrast: rgb(0, 0, 0);
   --ion-color-main-contrast-rgb: 0, 0, 0;
   --ion-color-main-shade: rgb(94, 21, 22);

@@ -23,14 +23,9 @@ import { useParams } from "react-router";
 
 import {
   arrowBackOutline,
-  arrowForward,
-  bookmarkOutline,
-  chatboxEllipsesOutline,
   ellipsisHorizontal,
-  happy,
   happyOutline,
   imageOutline,
-  personAddOutline,
   wineOutline,
 } from "ionicons/icons";
 import avatar from "../logo/avatar.jpg";
