@@ -15,6 +15,7 @@ import {
   IonToolbar,
   useIonRouter,
   IonIcon,
+  useIonModal
 } from "@ionic/react";
 import { useEffect, useRef, useState } from "react";
 import { bag, heart, caretBack, heartOutline } from "ionicons/icons";
@@ -24,6 +25,7 @@ import { addToCart } from "../store/CartStore";
 import { addToFavorites } from "../store/FavoriteStore";
 import { getDrink, getDrinkSizes, getFavoriteDrinks } from "../store/Selectors";
 import styles from "./ViewDrink.module.scss";
+import SendDrinkModal from "../components/SendDrinkModal";
 
 const ViewDrink = (props) => {
   const router = useIonRouter();
@@ -36,7 +38,13 @@ const ViewDrink = (props) => {
   const favoriteRef = useRef();
   const drinkCartRef = useRef();
   const [isFavorite, setIsFavorite] = useState(false);
-
+  const [present, dismiss] = useIonModal(SendDrinkModal, {dismiss: () => dismiss()});
+  const modalOptions = {
+    onDidDismiss: () => dismiss(),
+    breakpoints: [0, 0.2, 0.75, 1],
+    initialBreakpoint: 0.75,
+    backdropBreakpoint: 0.2
+  }
   const getPrice = () =>
     drink.prices.filter(
       (p) => parseInt(p.size_id) === parseInt(selectedSize)
@@ -206,7 +214,7 @@ const ViewDrink = (props) => {
           <IonButton
             color="main"
             expand="block"
-            onClick={(e) => addDrinkToCart(e, drink.id)}
+            onClick={() => present(modalOptions)}
           >
             <IonIcon size="small" icon={bag} />
             Send Drink

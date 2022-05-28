@@ -11,6 +11,7 @@ import "../pages/Home.module.scss";
 
 const ViewUserCard = (props) => {
   const { user, clickAction } = props;
+  console.log(user)
 
   return (
     <IonRow key={user.id} className="animate__animated animate__fadeIn">
