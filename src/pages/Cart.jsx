@@ -36,7 +36,6 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    console.log(cartProducts);
     const getCartProducts = () => {
       setCartProducts([]);
       setTotal(0);
@@ -67,17 +66,16 @@ const Cart = () => {
     getCartProducts();
   }, [cart]);
 
-  const fetchMore = async (e) => {
-    //	Increment the amount loaded by 6 for the next iteration
-    setAmountLoaded((prevAmount) => prevAmount + 6);
-    e.target.complete();
-  };
+  // const fetchMore = async (e) => {
+  //   //	Increment the amount loaded by 6 for the next iteration
+  //   setAmountLoaded((prevAmount) => prevAmount + 6);
+  //   e.target.complete();
+  // };
 
   const removeProductFromCart = async (index) => {
     removeFromCart(index);
   };
   const showDrinkSize = (drinkSize) => {
-      console.log(drinkSize);
     switch (drinkSize) {
       case 1:
         return <small>small</small>;
@@ -147,6 +145,8 @@ const Cart = () => {
                     </IonItemOptions>
                   </IonItemSliding>
                 );
+              } else {
+                return null;
               }
             })}
         </IonList>

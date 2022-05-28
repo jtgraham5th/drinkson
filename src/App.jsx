@@ -10,18 +10,12 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import {
-  addCircle,
-  addCircleOutline,
   bag,
   bagOutline,
   heart,
   heartOutline,
   home,
   homeOutline,
-  // notifications,
-  // notificationsOutline,
-  person,
-  personOutline,
   search,
   searchOutline,
 } from "ionicons/icons";
@@ -48,11 +42,13 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import BarSearch from "./pages/BarSearch";
 import ViewMenu from "./pages/ViewMenu";
-import UserDrinks from "./pages/UserDrinks";
 import UserProfile from "./pages/UserProfile";
 import ViewDrink from "./pages/ViewDrink";
 import Cart from "./pages/Cart.jsx";
 import ViewUsers from "./pages/ViewUsers.jsx";
+import CreateDrink from "./pages/CreateDrink.jsx";
+import ViewDrinkSearch from "./pages/ViewDrinkSearch";
+import Favorites from "./pages/Favorites.jsx";
 
 setupIonicReact();
 const tabs = [
@@ -75,7 +71,7 @@ const tabs = [
     url: "/favorites",
     activeIcon: heart,
     icon: heartOutline,
-    component: UserDrinks,
+    component: Favorites,
   },
   {
     name: "Cart",
@@ -84,13 +80,6 @@ const tabs = [
     icon: bagOutline,
     component: UserProfile,
   },
-  // {
-  //   name: "Notifications",
-  //   url: "/notifications",
-  //   activeIcon: notifications,
-  //   icon: notificationsOutline,
-  //   component: Tab3
-  // }
 ];
 
 const App = () => {
@@ -107,13 +96,35 @@ const App = () => {
               path="/drink/:id"
               render={(props) => <ViewDrink {...props} />}
             />
-            <Route exact={ false } path="/menu" render={(props) => <ViewMenu {...props} />} />
-            <Route exact path="/user/:id" render={(props) => <UserProfile {...props} />} />
-            <Route exact={ false } path="/users" render={(props) => <ViewUsers {...props} />} />
+
+            <Route
+              exact={false}
+              path="/menu"
+              render={(props) => <ViewMenu {...props} />}
+            />
+            <Route
+              exact={false}
+              path="/search/drinks/:query"
+              render={(props) => <ViewDrinkSearch {...props} />}
+            />
+            <Route
+              exact
+              path="/user/:id"
+              render={(props) => <UserProfile {...props} />}
+            />
+            <Route
+              exact={false}
+              path="/users"
+              render={(props) => <ViewUsers {...props} />}
+            />
             <Route exact path="/cart" render={(props) => <Cart {...props} />} />
-            {/* <Route exact path="/tabs/favourites" render={ (props) => <Favorites { ...props } /> } /> */}
+            <Route
+              exact
+              path="/favorites"
+              render={(props) => <Favorites {...props} />}
+            />
             <Route exact path="/search" component={BarSearch} />
-            <Route exact path="/add" component={UserDrinks} />
+            <Route exact path="/create" component={CreateDrink} />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             {tabs.map((tab, barIndex) => {

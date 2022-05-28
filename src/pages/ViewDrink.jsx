@@ -17,14 +17,12 @@ import {
   IonIcon,
 } from "@ionic/react";
 import { useEffect, useRef, useState } from "react";
-import { bag, heart, caretBack, informationCircle, heartOutline } from "ionicons/icons";
+import { bag, heart, caretBack, heartOutline } from "ionicons/icons";
 import { useParams } from "react-router";
 import { DrinkSizeStore, DrinkStore, FavoriteStore } from "../store";
 import { addToCart } from "../store/CartStore";
 import { addToFavorites } from "../store/FavoriteStore";
 import { getDrink, getDrinkSizes, getFavoriteDrinks } from "../store/Selectors";
-import "./Home.module.scss";
-
 import styles from "./ViewDrink.module.scss";
 
 const ViewDrink = (props) => {
@@ -44,14 +42,14 @@ const ViewDrink = (props) => {
       (p) => parseInt(p.size_id) === parseInt(selectedSize)
     )[0].price;
 
-  // useEffect(() => {
-  //   const drinkID = params.id;
-  //   const tempIsFavorite = favorites.find(
-  //     (f) => parseInt(f) === parseInt(drinkID)
-  //   );
+  useEffect(() => {
+    const drinkID = params.id;
+    const tempIsFavorite = favorites.find(
+      (f) => parseInt(f) === parseInt(drinkID)
+    );
 
-  //   setIsFavorite(tempIsFavorite);
-  // }, [params.id, favorites]);
+    setIsFavorite(tempIsFavorite);
+  }, [params.id, favorites]);
 
   const addDrinkToFavorites = (e, drinkID) => {
     e.preventDefault();
@@ -64,13 +62,13 @@ const ViewDrink = (props) => {
     }, 700);
   };
 
-  const addDrinkToCart = (e, drinkID,selectedSize) => {
+  const addDrinkToCart = (e, drinkID, selectedSize) => {
     e.preventDefault();
     e.stopPropagation();
 
     drinkCartRef.current.style.display = "";
     drinkCartRef.current.classList.add("animate__fadeOutUp");
-    const newDrink = {drinkID: drinkID, drinkSizeID: selectedSize}
+    const newDrink = { drinkID: drinkID, drinkSizeID: selectedSize };
     setTimeout(() => {
       addToCart(newDrink);
 
@@ -109,20 +107,6 @@ const ViewDrink = (props) => {
       </IonHeader>
 
       <IonContent fullscreen>
-        <IonHeader
-          collapse="condense"
-          className="custom-margin-left animate__animated animate__fadeIn"
-        >
-          <IonToolbar className="inner-toolbar">
-            <IonRow className="ion-no-padding ion-no-margin">
-              <IonCol size="9" className="ion-no-padding ion-no-margin">
-                <h1 className="main-heading">{drink.name}</h1>
-                <IonCardSubtitle>{drink.summary}</IonCardSubtitle>
-              </IonCol>
-            </IonRow>
-          </IonToolbar>
-        </IonHeader>
-
         <IonGrid className="animate__animated animate__fadeIn">
           <IonRow className="search-container">
             <IonCol size="6">
@@ -135,9 +119,19 @@ const ViewDrink = (props) => {
               size="6"
               className="ion-margin-top ion-padding-top ion-padding-end"
             >
-              <IonCardSubtitle>Description</IonCardSubtitle>
-              <p>{drink.description}</p>
-              <IonIcon icon={informationCircle} size="large" color="main" className="app-icon" />
+              {drink.description ? (
+                <>
+                  <IonCardSubtitle>Description</IonCardSubtitle>
+                  <p>{drink.description}</p>
+                </>
+              ) : (
+                <>
+                  <IonCardSubtitle>Ingredients</IonCardSubtitle>
+                  {drink.ingredients.map((ingredient,i) => (
+                    <h6 key={i}>{ingredient}</h6>
+                  ))}
+                </>
+              )}{" "}
             </IonCol>
           </IonRow>
 
@@ -208,6 +202,14 @@ const ViewDrink = (props) => {
             color="main"
           >
             Add to cart
+          </IonButton>
+          <IonButton
+            color="main"
+            expand="block"
+            onClick={(e) => addDrinkToCart(e, drink.id)}
+          >
+            <IonIcon size="small" icon={bag} />
+            Send Drink
           </IonButton>
 
           <div

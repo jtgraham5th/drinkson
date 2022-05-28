@@ -15,6 +15,8 @@ export const getFavoriteDrinks = createSelector(
   getState,
   (state) => state.drink_ids
 );
+export const getDrinkCategories = createSelector(getState, (state) => state.categories);
+export const getDrinkIngredients = createSelector(getState, (state) => state.ingredients);
 
 //  More specific getters
 export const getDrink = (id) =>

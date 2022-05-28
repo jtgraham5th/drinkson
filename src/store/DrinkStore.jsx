@@ -106,3 +106,11 @@ const DrinkStore = new Store({
 });
 
 export default DrinkStore;
+
+export const addNewDrink = (newDrink) => {
+  DrinkStore.update((s) => {
+    if (!s.drinks.find(drink => drink.id === newDrink.id)) {
+      s.drinks = [...s.drinks, newDrink];
+    }
+  });
+};

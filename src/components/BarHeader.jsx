@@ -10,12 +10,9 @@ import {
 } from "@ionic/react";
 import styles from "./BarHeader.module.scss";
 import {
-  arrowBackOutline,
   cameraOutline,
-  filterOutline,
-  menuOutline,
 } from "ionicons/icons";
-import { Figure } from "../components/Figure";
+import { Figure } from "./Figure";
 import logo from "../logo/beverley-logo.jpeg";
 
 const BarHeader = () => {
@@ -28,7 +25,7 @@ const BarHeader = () => {
           <IonRow>
             <IonCol size="12">
               <IonAvatar className={styles.avatar}>
-                <img src={logo} />
+                <img src={logo} alt="bar logo"/>
               </IonAvatar>
               <div className={styles.avatarUpload}>
                 <IonIcon icon={cameraOutline} />

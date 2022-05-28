@@ -16,9 +16,8 @@ import {
 } from "@ionic/react";
 import { searchSharp } from "ionicons/icons";
 import { useRef, useState } from "react";
-import { bag, caretBackCircle } from "ionicons/icons";
+import { caretBackCircle } from "ionicons/icons";
 import { useParams } from "react-router";
-import ViewDrinkCard from "../components/ViewDrinkCard";
 import { UserStore } from "../store";
 import { getUsers } from "../store/Selectors";
 import "./Home.module.scss";
