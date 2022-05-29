@@ -24,7 +24,7 @@ import { useEffect, useState } from "react";
 import { CartStore, DrinkStore } from "../store";
 import { removeFromCart } from "../store/CartStore";
 import { getCartDrinks, getDrinks } from "../store/Selectors";
-
+import UserAvatar from "../components/UserAvatar";
 import styles from "./Cart.module.scss";
 
 const Cart = () => {
@@ -36,7 +36,6 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    
     const getCartProducts = () => {
       setCartProducts([]);
       setTotal(0);
@@ -44,6 +43,7 @@ const Cart = () => {
       cart.forEach((drink) => {
         var drink_ID = drink.drinkID;
         var drinkSize_ID = parseFloat(drink.drinkSizeID);
+        var forUser_ID = drink.forUser;
         const tempDrink = drinks.filter(
           (p) => parseInt(p.id) === parseInt(drink_ID)
         )[0];
@@ -55,6 +55,7 @@ const Cart = () => {
         newDrink.image = tempDrink.image;
         newDrink.size = drinkSize_ID;
         newDrink.price = tempPrice;
+        newDrink.forUser = forUser_ID;
 
         setTotal((prevTotal) => prevTotal + parseFloat(tempPrice));
         setCartProducts((prevSearchResults) => [
@@ -115,38 +116,40 @@ const Cart = () => {
           {cartProducts &&
             cartProducts.map((drink, index) => {
               // if (index <= amountLoaded) {
-                return (
-                  <IonItemSliding className={styles.cartSlider}>
-                    <IonItem
-                      key={index}
-                      lines="none"
-                      detail={false}
-                      className={styles.cartItem}
+              return (
+                <IonItemSliding className={styles.cartSlider}>
+                  <IonItem
+                    key={index}
+                    lines="none"
+                    detail={false}
+                    className={styles.cartItem}
+                  >
+                    <img alt="cart drink" src={drink.image} />
+                    <IonLabel className="ion-padding-start ion-text-wrap">
+                      <h4>{drink.name}</h4>
+                    </IonLabel>
+                    <IonLabel className="ion-padding-start ion-text-wrap">
+                      {showDrinkSize(drink.size)}
+                    </IonLabel>
+                    {drink.forUser ? (
+                      <UserAvatar userID={drink.forUser} />
+                    ) : null}
+
+                    <div className={styles.cartActions}>
+                      <IonBadge color="dark">${drink.price}</IonBadge>
+                    </div>
+                  </IonItem>
+                  <IonItemOptions side="end">
+                    <IonItemOption
+                      color="main"
+                      style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
+                      onClick={() => removeProductFromCart(index)}
                     >
-                      <img alt="cart drink" src={drink.image} />
-                      <IonLabel className="ion-padding-start ion-text-wrap">
-                        <h4>{drink.name}</h4>
-                      </IonLabel>
-                      <IonLabel className="ion-padding-start ion-text-wrap">
-                        {showDrinkSize(drink.size)}
-                      </IonLabel>
-
-                      <div className={styles.cartActions}>
-                        <IonBadge color="dark">${drink.price}</IonBadge>
-                      </div>
-                    </IonItem>
-
-                    <IonItemOptions side="end">
-                      <IonItemOption
-                        color="main"
-                        style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
-                        onClick={() => removeProductFromCart(index)}
-                      >
-                        <IonIcon icon={trashBin} />
-                      </IonItemOption>
-                    </IonItemOptions>
-                  </IonItemSliding>
-                );
+                      <IonIcon icon={trashBin} />
+                    </IonItemOption>
+                  </IonItemOptions>
+                </IonItemSliding>
+              );
               // } else {
               //   return null;
               // }

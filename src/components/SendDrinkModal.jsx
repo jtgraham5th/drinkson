@@ -8,7 +8,6 @@ import {
   IonContent,
   IonHeader,
   IonToolbar,
-  useIonRouter,
 } from "@ionic/react";
 // import { ArrowRightSquare } from "react-iconly";
 import { searchSharp } from "ionicons/icons";
@@ -20,8 +19,7 @@ import ViewUserCard from "../components/ViewUserCard";
 
 // import styles from "./SendDrinkModal.module.scss";
 
-const SendDrinkModal = ({ dismiss }) => {
-  const router = useIonRouter();
+const SendDrinkModal = ({ dismiss, setUserID}) => {
   const users = UserStore.useState(getUsers);
   const [results, setResults] = useState(users);
   console.log(results);
@@ -41,7 +39,11 @@ const SendDrinkModal = ({ dismiss }) => {
       setResults(users);
     }
   };
-
+  const setUser = (userID) => {
+    console.log(userID)
+    setUserID(userID);
+    dismiss();
+  }
   return (
     <>
       <IonHeader translucent>
@@ -57,6 +59,7 @@ const SendDrinkModal = ({ dismiss }) => {
           <IonCol size="12">
             <IonSearchbar
               onKeyDown={(e) => search(e)}
+              onIonClear={() => setResults(users)}
               id="searchbar"
               ref={searchRef}
               searchIcon={searchSharp}
@@ -72,7 +75,7 @@ const SendDrinkModal = ({ dismiss }) => {
               <ViewUserCard
                 key={results[index].id}
                 user={results[index]}
-                clickAction={() => router.push(`/user/${results[index].id}`)}
+                clickAction={(e) => setUser(results[index].id)}
               />
             );
           }}

@@ -41,7 +41,7 @@ const Home = () => {
               <IonSearchbar
                 onClick={() => router.push("/menu")}
                 searchIcon={searchSharp}
-                placeholder="Try 'Caramel Latte'"
+                placeholder="Search Bar Menu"
               />
             </IonCol>
           </IonRow>
@@ -49,8 +49,8 @@ const Home = () => {
           <IonRow>
             <IonCol size="12">
               <IonButton
-                color="main"
-                fill="outline"
+                color="light"
+                fill="solid"
                 expand="block"
                 onClick={() => router.push("/create")}
               >

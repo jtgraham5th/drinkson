@@ -6,17 +6,28 @@ import {
   IonIcon,
   IonCol,
   IonRow,
+  useIonModal,
 } from "@ionic/react";
-
 import { useRef } from "react";
 import { bag } from "ionicons/icons";
 import { addToCart } from "../store/CartStore";
 import "../pages/Home.module.scss";
+import ViewDrink from "../pages/ViewDrink";
 import styles from "./DrinkCard.module.scss";
 
 const ViewDrinkCard = (props) => {
   const { drink, cartRef } = props;
   const drinkCartRef = useRef();
+  const [present, dismiss] = useIonModal(ViewDrink, {
+    close: () => dismiss(),
+    drinkID: drink.id,
+  });
+  const modalOptions = {
+    onDidDismiss: () => dismiss(),
+    breakpoints: [1],
+    initialBreakpoint: 1,
+    backdropBreakpoint: 1,
+  };
 
   const addDrinkToCart = (e, drinkID) => {
     e.preventDefault();
@@ -73,7 +84,7 @@ const ViewDrinkCard = (props) => {
         <IonRow className="ion-justify-content-between">
           <IonCol size="8">
             <IonButton
-              routerLink={`/drink/${drink.id}`}
+              onClick={() => present(modalOptions)}
               color="main"
               expand="block"
             >
