@@ -32,10 +32,11 @@ const Cart = () => {
   const cart = CartStore.useState(getCartDrinks);
 
   const [cartProducts, setCartProducts] = useState([]);
-  const [amountLoaded, setAmountLoaded] = useState(6);
+  // const [amountLoaded, setAmountLoaded] = useState(6);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
+    
     const getCartProducts = () => {
       setCartProducts([]);
       setTotal(0);
@@ -64,6 +65,7 @@ const Cart = () => {
     };
 
     getCartProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   // const fetchMore = async (e) => {
@@ -112,7 +114,7 @@ const Cart = () => {
         <IonList>
           {cartProducts &&
             cartProducts.map((drink, index) => {
-              if (index <= amountLoaded) {
+              // if (index <= amountLoaded) {
                 return (
                   <IonItemSliding className={styles.cartSlider}>
                     <IonItem
@@ -145,9 +147,9 @@ const Cart = () => {
                     </IonItemOptions>
                   </IonItemSliding>
                 );
-              } else {
-                return null;
-              }
+              // } else {
+              //   return null;
+              // }
             })}
         </IonList>
       </IonContent>

@@ -48,6 +48,7 @@ const Favorites = () => {
     };
 
     getFavorites();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favorites]);
 
   const fetchMore = async (e) => {
