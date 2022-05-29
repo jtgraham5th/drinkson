@@ -13,51 +13,58 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
-  useIonRouter,
   IonIcon,
-  useIonModal
+  useIonModal,
+  useIonViewDidLeave,
 } from "@ionic/react";
 import { useEffect, useRef, useState } from "react";
-import { bag, heart, caretBack, heartOutline } from "ionicons/icons";
-import { useParams } from "react-router";
+import { bag, heart, caretBack, heartOutline, person } from "ionicons/icons";
 import { DrinkSizeStore, DrinkStore, FavoriteStore } from "../store";
 import { addToCart } from "../store/CartStore";
 import { addToFavorites } from "../store/FavoriteStore";
 import { getDrink, getDrinkSizes, getFavoriteDrinks } from "../store/Selectors";
 import styles from "./ViewDrink.module.scss";
 import SendDrinkModal from "../components/SendDrinkModal";
+import UserAvatar from "../components/UserAvatar";
 
-const ViewDrink = (props) => {
-  const router = useIonRouter();
-  const params = useParams();
-  const drink = DrinkStore.useState(getDrink(params.id));
+const ViewDrink = ({ drinkID, close }) => {
+  const drink = DrinkStore.useState(getDrink(drinkID));
   const favorites = FavoriteStore.useState(getFavoriteDrinks);
   const drinkSizes = DrinkSizeStore.useState(getDrinkSizes);
+  const [forUserID, setUserID] = useState(null);
   const [selectedSize, setSelectedSize] = useState(false);
 
   const favoriteRef = useRef();
   const drinkCartRef = useRef();
   const [isFavorite, setIsFavorite] = useState(false);
-  const [present, dismiss] = useIonModal(SendDrinkModal, {dismiss: () => dismiss()});
+  const [present, dismiss] = useIonModal(SendDrinkModal, {
+    dismiss: () => dismiss(),
+    setUserID: setUserID,
+  });
   const modalOptions = {
     onDidDismiss: () => dismiss(),
-    breakpoints: [0, 0.2, 0.75, 1],
+    breakpoints: [0.75, 1],
     initialBreakpoint: 0.75,
-    backdropBreakpoint: 0.2
-  }
+    backdropBreakpoint: 0.75,
+  };
   const getPrice = () =>
     drink.prices.filter(
       (p) => parseInt(p.size_id) === parseInt(selectedSize)
     )[0].price;
 
+  useIonViewDidLeave(() => {
+    setUserID(null);
+    setSelectedSize(false);
+  });
+
   useEffect(() => {
-    const drinkID = params.id;
     const tempIsFavorite = favorites.find(
       (f) => parseInt(f) === parseInt(drinkID)
     );
 
     setIsFavorite(tempIsFavorite);
-  }, [params.id, favorites]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favorites]);
 
   const addDrinkToFavorites = (e, drinkID) => {
     e.preventDefault();
@@ -76,7 +83,11 @@ const ViewDrink = (props) => {
 
     drinkCartRef.current.style.display = "";
     drinkCartRef.current.classList.add("animate__fadeOutUp");
-    const newDrink = { drinkID: drinkID, drinkSizeID: selectedSize };
+    const newDrink = {
+      drinkID: drinkID,
+      drinkSizeID: selectedSize,
+      forUser: forUserID,
+    };
     setTimeout(() => {
       addToCart(newDrink);
 
@@ -84,6 +95,7 @@ const ViewDrink = (props) => {
         drinkCartRef.current.style.display = "none";
       }, 500);
     }, 500);
+    close();
   };
 
   return (
@@ -91,7 +103,7 @@ const ViewDrink = (props) => {
       <IonHeader translucent>
         <IonToolbar style={{ backgroundColor: "rgb(87, 13, 19)" }}>
           <IonButtons slot="start">
-            <div className="button-container" onClick={() => router.goBack()}>
+            <div className="button-container" onClick={close}>
               <IonIcon icon={caretBack} className="gray-icon" size="large" />
             </div>
           </IonButtons>
@@ -135,8 +147,10 @@ const ViewDrink = (props) => {
               ) : (
                 <>
                   <IonCardSubtitle>Ingredients</IonCardSubtitle>
-                  {drink.ingredients.map((ingredient,i) => (
-                    <h6 key={i}>{ingredient}</h6>
+                  {drink.ingredients.map((ingredient, i) => (
+                    <h6 key={i} className={styles.ingredients}>
+                      {ingredient}
+                    </h6>
                   ))}
                 </>
               )}{" "}
@@ -145,35 +159,33 @@ const ViewDrink = (props) => {
 
           <IonRow>
             <IonCol size="12" className="ion-padding">
-              <IonCardSubtitle className="custom-margin-left">
-                Extras included
-              </IonCardSubtitle>
+              {drink.extras.length > 0 ? (
+                <>
+                  <IonCardSubtitle className="custom-margin-left">
+                    Extras included
+                  </IonCardSubtitle>
+                  <IonRow>
+                    <IonCol size="4">
+                      {drink.extras.map((extra, index) => {
+                        return (
+                          <IonBadge
+                            key={`extra_${index}`}
+                            className={styles.extra}
+                            expand="block"
+                            color="custom-light"
+                          >
+                            {extra}
+                          </IonBadge>
+                        );
+                      })}
+                    </IonCol>
+                  </IonRow>
+                </>
+              ) : null}
 
-              <IonRow>
-                <IonCol size="4">
-                  {drink.extras.map((extra, index) => {
-                    return (
-                      <IonBadge
-                        key={`extra_${index}`}
-                        className={styles.extra}
-                        expand="block"
-                        color="custom-light"
-                      >
-                        {extra}
-                      </IonBadge>
-                    );
-                  })}
-                </IonCol>
-              </IonRow>
-            </IonCol>
-          </IonRow>
-
-          <IonRow>
-            <IonCol size="12" className="ion-padding">
               <IonCardSubtitle className="custom-margin-left">
                 Pick your size
               </IonCardSubtitle>
-
               <IonRow>
                 {drinkSizes.map((size) => {
                   return (
@@ -194,6 +206,25 @@ const ViewDrink = (props) => {
               </IonRow>
             </IonCol>
           </IonRow>
+          <IonRow className={styles.sendDrinkContainer}>
+            <IonButton
+              color="light"
+              expand="block"
+              onClick={() => present(modalOptions)}
+              disabled={!selectedSize}
+            >
+              {forUserID ? (
+                <>
+                  Sending Drink to <UserAvatar userID={forUserID} />
+                </>
+              ) : (
+                <>
+                  <IonIcon size="small" icon={person} />
+                  Send Drink
+                </>
+              )}
+            </IonButton>
+          </IonRow>
         </IonGrid>
       </IonContent>
 
@@ -210,14 +241,6 @@ const ViewDrink = (props) => {
             color="main"
           >
             Add to cart
-          </IonButton>
-          <IonButton
-            color="main"
-            expand="block"
-            onClick={() => present(modalOptions)}
-          >
-            <IonIcon size="small" icon={bag} />
-            Send Drink
           </IonButton>
 
           <div
