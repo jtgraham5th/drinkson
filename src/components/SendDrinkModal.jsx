@@ -3,15 +3,12 @@ import {
   IonButtons,
   IonTitle,
   IonButton,
-  IonGrid,
   IonCol,
   IonSearchbar,
   IonContent,
   IonHeader,
   IonToolbar,
   useIonRouter,
-  IonList,
-  useIonViewDidEnter,
 } from "@ionic/react";
 // import { ArrowRightSquare } from "react-iconly";
 import { searchSharp } from "ionicons/icons";
