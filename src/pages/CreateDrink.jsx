@@ -46,8 +46,8 @@ const CreateDrink = () => {
     }
   });
 
-  const search = (e) => {
-    const searchTerm = e.currentTarget.value;
+  const handleSearchChange = (event) => {
+    const searchTerm = event.currentTarget.value;
 
     if (searchTerm !== "") {
       setNoResults(false);
@@ -61,36 +61,40 @@ const CreateDrink = () => {
       setResults(ingredients);
     }
   };
-  const searchCategories = async (e) => {
-    const selected = e.target.innerText;
 
+  const handleSearchCategories = async (e) => {
+    const selected = e.target.innerText;
+  
     await axios
       .get(
         `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${selected}`
       )
-      .then((res) =>
+      .then((res) => {
+        const routerOptions = res.data;
         router.push({
           pathname: `/search/drinks/${selected}`,
-          routerOptions: res.data,
-        })
-      );
+          routerOptions,
+        });
+      });
   };
-
-  const searchIngredient = async (e) => {
+  
+  const handleSearchIngredient = async (e) => {
     const selected = e.target.innerText;
-
+  
     await axios
       .get(
         `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${selected}`
       )
-      .then((res) =>
+      .then((res) => {
+        const routerOptions = res.data;
         router.push({
           pathname: `/search/drinks/${selected}`,
-          routerOptions: res.data,
-        })
-      );
+          routerOptions,
+        });
+      });
   };
-  const searchDrink = async (e) => {
+  
+  const handleSearchDrink = async (e) => {
     e.preventDefault();
     const selected = e.target[0].value;
     await axios
@@ -98,16 +102,20 @@ const CreateDrink = () => {
         `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${selected}`
       )
       .then((res) => {
-        if (!res.data.drinks) {
+        const routerOptions = res.data;
+  
+        if (!routerOptions.drinks) {
           setNoResults(true);
         } else {
           router.push({
             pathname: `/search/drinks/${selected}`,
-            routerOptions: res.data,
+            routerOptions,
           });
         }
       });
   };
+  
+
 
   return (
     <IonPage>
@@ -118,23 +126,22 @@ const CreateDrink = () => {
               <IonIcon icon={caretBack} className="gray-icon" size="large" />
             </div>
           </IonButtons>
-
-          <IonTitle>Create Your Drink</IonTitle>
+          <IonTitle style={{ textAlign: 'center' }}>Create Your Drink</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent scrollY={false} fullscreen>
         <IonRow className="outer-heading ion-justify-content-between ion-align-items-center">
-          <h4 className="heading">Browse Drink Categories</h4>
+          <h3 className="heading" >Browse Drink Categories</h3>
         </IonRow>
 
-        <IonRow className="outer-heading ion-justify-content-between ion-align-items-center">
-          <IonCol size="12">
-            <Swiper slidesPerView={3} spaceBetween={5} modules={FreeMode}>
+        <IonRow className="outer-heading ion-justify-content-between ion-align-items-center" style={{ marginTop: '.5rem' }}>
+          <IonCol size="15">
+            <Swiper slidesPerView={4} spaceBetween={5} modules={FreeMode}>
               {categories.map((category, i) => (
                 <SwiperSlide key={i}>
                   <SelectDrinkCard
                     category={category}
-                    select={(e) => searchCategories(e)}
+                    select={(e) => handleSearchCategories(e)}
                   />
                 </SwiperSlide>
               ))}
@@ -143,19 +150,19 @@ const CreateDrink = () => {
         </IonRow>
 
         <IonRow className="outer-heading ion-justify-content-between ion-align-items-center">
-          <h4 className="heading">Search by Ingredient or Drink Name</h4>
+          <h3 className="heading">Search by Ingredient or Drink Name</h3>
         </IonRow>
 
-        <IonRow className="search-container">
+        <IonRow className="search-container" style={{ marginTop: '1rem' }}>
           <IonCol size="12">
-            <form onSubmit={(e) => searchDrink(e)}>
+            <form onSubmit={(e) => handleSearchDrink(e)}>
               <IonSearchbar
-                onKeyDown={(e) => search(e)}
+                onKeyDown={(e) => handleSearchChange(e)}
                 onIonClear={() => setResults(ingredients)}
                 id="searchbar"
                 ref={searchRef}
                 searchIcon={searchSharp}
-                placeholder="Try 'Cappuccino'"
+                placeholder="Try 'Manhattan'"
               />
             </form>
           </IonCol>
@@ -168,7 +175,7 @@ const CreateDrink = () => {
             totalCount={results.length}
             itemContent={(index) => {
               return (
-                <IonItem button onClick={(e) => searchIngredient(e)} detail>
+                <IonItem button onClick={(e) => handleSearchIngredient(e)} detail>
                   <IonLabel>{results[index]}</IonLabel>
                 </IonItem>
               );

@@ -14,9 +14,8 @@ import {
   useIonRouter,
   useIonViewDidEnter,
 } from "@ionic/react";
-import { searchSharp } from "ionicons/icons";
+import { searchSharp, caretBack, personCircle } from "ionicons/icons";
 import { useRef, useState } from "react";
-import { caretBackCircle } from "ionicons/icons";
 import { useParams } from "react-router";
 import { UserStore } from "../store";
 import { getUsers } from "../store/Selectors";
@@ -64,7 +63,7 @@ const ViewUsers = (props) => {
               <IonIcon
                 size="large"
                 className="gray-icon"
-                icon={caretBackCircle}
+                icon={caretBack}
               />
             </div>
           </IonButtons>
@@ -75,11 +74,13 @@ const ViewUsers = (props) => {
             <div
               ref={cartRef}
               className="button-container animate__animated"
-              onClick={() => router.push("/tabs/cart")}
+              onClick={() => router.push("/userprofile")}
             >
-              {/* <IonIcon size="large" className={
-                  cart && cart.length > 0 ? "yellow-icon" : "gray-icon"
-                } icon={bag} /> */}
+              <IonIcon
+                size="large"
+                className="yellow-icon"
+                icon={personCircle}
+              />
             </div>
           </IonButtons>
         </IonToolbar>

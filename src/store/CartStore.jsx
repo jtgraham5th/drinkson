@@ -10,12 +10,13 @@ export default CartStore;
 export const addToCart = (newDrink) => {
   CartStore.update((s) => {
     s.drinks = [...s.drinks, newDrink];
-    // s.drink_ids = [...s.drink_ids, `${parseInt(drinkID)}`];
+    s.total += parseFloat(newDrink.price);
   });
 };
 
 export const removeFromCart = (drinkIndex) => {
   CartStore.update((s) => {
-    s.drinks.splice(drinkIndex, 1);
+    const removedDrink = s.drinks.splice(drinkIndex, 1)[0];
+    s.total -= parseFloat(removedDrink.price);
   });
 };

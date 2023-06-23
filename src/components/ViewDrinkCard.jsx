@@ -17,7 +17,7 @@ import styles from "./DrinkCard.module.scss";
 
 const ViewDrinkCard = (props) => {
   const { drink, cartRef } = props;
-  const drinkCartRef = useRef();
+  const drinkCartRef = useRef(null);
   const [present, dismiss] = useIonModal(ViewDrink, {
     close: () => dismiss(),
     drinkID: drink.id,
@@ -33,17 +33,25 @@ const ViewDrinkCard = (props) => {
     e.preventDefault();
     e.stopPropagation();
 
-    drinkCartRef.current.style.display = "";
-    drinkCartRef.current.classList.add("animate__fadeOutUp");
-    const newDrink = { drinkID: drinkID, drinkSizeID: 2 };
-    setTimeout(() => {
-      cartRef.current.classList.add("animate__tada");
-      addToCart(newDrink);
+    if (drinkCartRef.current) {
+      drinkCartRef.current.style.display = "";
+      drinkCartRef.current.classList.add("animate__fadeOutUp");
+      const newDrink = { drinkID: drinkID, drinkSizeID: 2 };
       setTimeout(() => {
-        cartRef.current.classList.remove("animate__tada");
-        drinkCartRef.current.style.display = "none";
+        if (cartRef.current) {
+          cartRef.current.classList.add("animate__tada");
+          addToCart(newDrink);
+          setTimeout(() => {
+            if (cartRef.current) {
+              cartRef.current.classList.remove("animate__tada");
+            }
+            if (drinkCartRef.current) {
+              drinkCartRef.current.style.display = "none";
+            }
+          }, 500);
+        }
       }, 500);
-    }, 500);
+    }
   };
 
   return (

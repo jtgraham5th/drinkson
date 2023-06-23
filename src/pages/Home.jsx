@@ -28,9 +28,9 @@ const Home = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent={true}>
         <IonToolbar>
-          <IonTitle>Drinkson</IonTitle>
+          <IonTitle style={{ textAlign: "center" }}>Drinkson</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -60,29 +60,40 @@ const Home = () => {
           </IonRow>
 
           <IonRow className="outer-heading ion-justify-content-between ion-align-items-center">
-            <h4 className="heading">Popular</h4>
+            <h3
+              style={{ textAlign: "center" }}
+              className="heading"
+            >
+              Popular
+            </h3>
 
-            <IonRouterLink color="main" routerLink="/coffees">
-              <div>Filter Icon</div>
-            </IonRouterLink>
+            <div className="filter-icon">
+              <IonRouterLink color="main" routerLink="/coffees">
+                Filter Icon
+              </IonRouterLink>
+            </div>
           </IonRow>
 
           <IonRow>
             {drinks.map((drink) => {
-              if (drink.id <= 2) {
+              if (drink.id <= 4) {
                 return <DrinkCard key={drink.id} drink={drink} />;
               } else return null;
             })}
           </IonRow>
 
-          <IonRow className="outer-heading">
+          <IonRow className="action-row">
             <IonCol size="12">
-              <h4 className="heading">Special Offers</h4>
+              <h3 style={{ textAlign: "center" }} className="heading">
+                Special Offers
+              </h3>
             </IonCol>
           </IonRow>
 
           {offers.map((offer) => {
-            return <OfferCard key={offer.id} offer={offer} />;
+            if (offer.id <= 1) {
+              return <OfferCard key={offer.id} offer={offer} />;
+            } else return null;
           })}
         </IonGrid>{" "}
       </IonContent>

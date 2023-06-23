@@ -8,6 +8,7 @@ import {
   IonTabButton,
   IonTabs,
   setupIonicReact,
+  IonLabel,
 } from "@ionic/react";
 import {
   bag,
@@ -18,6 +19,8 @@ import {
   homeOutline,
   search,
   searchOutline,
+  person,
+  personOutline,
 } from "ionicons/icons";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home.jsx";
@@ -49,6 +52,7 @@ import ViewUsers from "./pages/ViewUsers.jsx";
 import CreateDrink from "./pages/CreateDrink.jsx";
 import ViewDrinkSearch from "./pages/ViewDrinkSearch";
 import Favorites from "./pages/Favorites.jsx";
+import SpecialOffers from "./pages/SpecialOffers.jsx";
 
 setupIonicReact();
 const tabs = [
@@ -80,6 +84,13 @@ const tabs = [
     icon: bagOutline,
     component: UserProfile,
   },
+  {
+    name: "User",
+    url: "/users",
+    activeIcon: person,
+    icon: personOutline,
+    component: UserProfile,
+  },
 ];
 
 const App = () => {
@@ -109,11 +120,6 @@ const App = () => {
             />
             <Route
               exact
-              path="/user/:id"
-              render={(props) => <UserProfile {...props} />}
-            />
-            <Route
-              exact={false}
               path="/users"
               render={(props) => <ViewUsers {...props} />}
             />
@@ -125,6 +131,9 @@ const App = () => {
             />
             <Route exact path="/search" component={BarSearch} />
             <Route exact path="/create" component={CreateDrink} />
+            <Route exact path="/userprofile" component={UserProfile} />
+            <Route exact path="/viewdrinksearch" component={ViewDrinkSearch} />
+            <Route exact path="/specialoffers" component={SpecialOffers} />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             {tabs.map((tab, barIndex) => {
@@ -137,6 +146,7 @@ const App = () => {
                   href={tab.url}
                 >
                   <IonIcon icon={active ? tab.activeIcon : tab.icon} />
+                  <IonLabel>{tab.name}</IonLabel>
                 </IonTabButton>
               );
             })}

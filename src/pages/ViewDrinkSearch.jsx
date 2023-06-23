@@ -1,3 +1,4 @@
+import React from "react";
 import {
   IonButtons,
   IonContent,
@@ -113,38 +114,32 @@ const ViewDrinkSearch = (props) => {
       <IonContent fullscreen>
         <IonGrid>
           <IonList>
-            {results.map((drink, index) => {
-              return (
-                <>
-                  <IonItem
-                    key={index}
-                    lines="none"
-                    detail={true}
-                    className={styles.searchItem}
-                    onClick={() => getDrinkData(drink.idDrink)}
-                  >
-                    <img alt="cart drink" src={drink.strDrinkThumb} />
-                    <IonLabel className="ion-padding-start ion-text-wrap">
-                      <h4>{drink.strDrink}</h4>
-                    </IonLabel>
-                    {/* <IonLabel className="ion-padding-start ion-text-wrap">
-                    {showDrinkSize(drink.size)}
-                  </IonLabel> */}
+            {results.map((drink) => (
+              <React.Fragment key={drink.idDrink}>
+                <IonItem
+                  lines="none"
+                  detail={true}
+                  className={styles.searchItem}
+                  onClick={() => getDrinkData(drink.idDrink)}
+                >
+                  <img alt="cart drink" src={drink.strDrinkThumb} />
+                  <IonLabel className="ion-padding-start ion-text-wrap">
+                    <h4>{drink.strDrink}</h4>
+                  </IonLabel>
 
-                    <div className={styles.searchActions}>
-                      <IonBadge color="dark">$5.00</IonBadge>
-                    </div>
-                  </IonItem>
-                  {selectedDrink.id === drink.idDrink ? (
-                    <ViewDrinkCard
-                      key={selectedDrink.id}
-                      drink={selectedDrink}
-                      cartRef={cartRef}
-                    />
-                  ) : null}
-                </>
-              );
-            })}
+                  <div className={styles.searchActions}>
+                    <IonBadge color="dark">$5.00</IonBadge>
+                  </div>
+                </IonItem>
+                {selectedDrink.id === drink.idDrink && (
+                  <ViewDrinkCard
+                    key={selectedDrink.id}
+                    drink={selectedDrink}
+                    cartRef={cartRef}
+                  />
+                )}
+              </React.Fragment>
+            ))}
           </IonList>
         </IonGrid>
       </IonContent>

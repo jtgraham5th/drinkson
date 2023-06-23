@@ -35,7 +35,7 @@ const ViewDrink = ({ drinkID, close }) => {
   const [selectedSize, setSelectedSize] = useState(false);
 
   const favoriteRef = useRef();
-  const drinkCartRef = useRef();
+  const drinkCartRef = useRef(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [present, dismiss] = useIonModal(SendDrinkModal, {
     dismiss: () => dismiss(),
@@ -80,6 +80,12 @@ const ViewDrink = ({ drinkID, close }) => {
   const addDrinkToCart = (e, drinkID, selectedSize) => {
     e.preventDefault();
     e.stopPropagation();
+
+    
+    if (drinkCartRef.current) {
+      drinkCartRef.current.style.display = "";
+      drinkCartRef.current.classList.add("animate__fadeOutUp");
+    }
 
     drinkCartRef.current.style.display = "";
     drinkCartRef.current.classList.add("animate__fadeOutUp");

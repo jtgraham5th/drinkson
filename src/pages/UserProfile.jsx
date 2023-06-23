@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   IonAvatar,
   IonButton,
@@ -29,13 +30,31 @@ import {
   wineOutline,
 } from "ionicons/icons";
 import avatar from "../logo/avatar.jpg";
-import { UserStore } from "../store";
+// import { UserStore } from "../store";
 import { getUser } from "../store/Selectors";
 
 const UserProfile = (props) => {
   const router = useIonRouter();
   const params = useParams();
-  const user = UserStore.useState(getUser(params.id));
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await getUser(params.id);
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    fetchUser();
+  }, [params.id]);
+
+  if (!user) {
+    return <div>Loading user...</div>; // Show a loading state while fetching user data
+  }
+
 
   return (
     <IonPage className={styles.profile}>

@@ -32,7 +32,6 @@ const Cart = () => {
   const cart = CartStore.useState(getCartDrinks);
 
   const [cartProducts, setCartProducts] = useState([]);
-  // const [amountLoaded, setAmountLoaded] = useState(6);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -66,18 +65,16 @@ const Cart = () => {
     };
 
     getCartProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cart]);
+  }, [cart, drinks]);
 
-  // const fetchMore = async (e) => {
-  //   //	Increment the amount loaded by 6 for the next iteration
-  //   setAmountLoaded((prevAmount) => prevAmount + 6);
-  //   e.target.complete();
-  // };
-
-  const removeProductFromCart = async (index) => {
+  const removeProductFromCart = (index) => {
     removeFromCart(index);
+    setCartProducts((prevCartProducts) =>
+      prevCartProducts.filter((_, i) => i !== index)
+    );
+    setTotal((prevTotal) => prevTotal - cartProducts[index].price);
   };
+
   const showDrinkSize = (drinkSize) => {
     switch (drinkSize) {
       case 1:
@@ -95,8 +92,9 @@ const Cart = () => {
     <IonPage id="cart-page">
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Checkout</IonTitle>
+          <IonTitle style={{ textAlign: 'center' }}>Checkout</IonTitle>
         </IonToolbar>
+        
       </IonHeader>
 
       <IonContent fullscreen>
@@ -114,46 +112,39 @@ const Cart = () => {
 
         <IonList>
           {cartProducts &&
-            cartProducts.map((drink, index) => {
-              // if (index <= amountLoaded) {
-              return (
-                <IonItemSliding className={styles.cartSlider}>
-                  <IonItem
-                    key={index}
-                    lines="none"
-                    detail={false}
-                    className={styles.cartItem}
-                  >
-                    <img alt="cart drink" src={drink.image} />
-                    <IonLabel className="ion-padding-start ion-text-wrap">
-                      <h4>{drink.name}</h4>
-                    </IonLabel>
-                    <IonLabel className="ion-padding-start ion-text-wrap">
-                      {showDrinkSize(drink.size)}
-                    </IonLabel>
-                    {drink.forUser ? (
-                      <UserAvatar userID={drink.forUser} />
-                    ) : null}
+            cartProducts.map((drink, index) => (
+              <IonItemSliding className={styles.cartSlider} key={index}>
+                <IonItem
+                  lines="none"
+                  detail={false}
+                  className={styles.cartItem}
+                >
+                  <img alt="cart drink" src={drink.image} />
+                  <IonLabel className="ion-padding-start ion-text-wrap">
+                    <h4>{drink.name}</h4>
+                  </IonLabel>
+                  <IonLabel className="ion-padding-start ion-text-wrap">
+                    {showDrinkSize(drink.size)}
+                  </IonLabel>
+                  {drink.forUser ? (
+                    <UserAvatar userID={drink.forUser} />
+                  ) : null}
 
-                    <div className={styles.cartActions}>
-                      <IonBadge color="dark">${drink.price}</IonBadge>
-                    </div>
-                  </IonItem>
-                  <IonItemOptions side="end">
-                    <IonItemOption
-                      color="main"
-                      style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
-                      onClick={() => removeProductFromCart(index)}
-                    >
-                      <IonIcon icon={trashBin} />
-                    </IonItemOption>
-                  </IonItemOptions>
-                </IonItemSliding>
-              );
-              // } else {
-              //   return null;
-              // }
-            })}
+                  <div className={styles.cartActions}>
+                    <IonBadge color="dark">${drink.price}</IonBadge>
+                  </div>
+                </IonItem>
+                <IonItemOptions side="end">
+                  <IonItemOption
+                    color="main"
+                    style={{ paddingLeft: "1rem", paddingRight: "1rem" }}
+                    onClick={() => removeProductFromCart(index)}
+                  >
+                    <IonIcon icon={trashBin} />
+                  </IonItemOption>
+                </IonItemOptions>
+              </IonItemSliding>
+            ))}
         </IonList>
       </IonContent>
 

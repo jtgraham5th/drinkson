@@ -4,112 +4,113 @@ const DrinkStore = new Store({
   drinks: [
     {
       id: 1,
-      name: "Cappuccino",
-      summary: "With Milk",
-      extras: ["milk"],
+      name: "Martini",
+      summary: "Classic Cocktail",
+      extras: ["olive"],
       description:
-        "This is a beautiful cup of cappuccino, complimented with semi-skimmed milk. Comes in three different sizes.",
-      price: "3.20",
+        "A classic martini cocktail made with gin and dry vermouth. Served with an olive garnish.",
+      price: "8.50",
       prices: [
         {
           size_id: 1,
-          price: "3.20",
+          price: "8.50",
         },
         {
           size_id: 2,
-          price: "3.90",
+          price: "10.50",
         },
         {
           size_id: 3,
-          price: "4.20",
+          price: "12.50",
         },
       ],
       image:
-        "https://images.pexels.com/photos/1170659/pexels-photo-1170659.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+      "https://images.pexels.com/photos/364376/pexels-photo-364376.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     },
     {
       id: 2,
-      name: "Lattè",
-      summary: "With Caramel",
-      extras: ["caramel"],
+      name: "Mojito",
+      summary: "Refreshing Cocktail",
+      extras: ["mint", "lime"],
       description:
-        "This is a beautiful cup of lattè, complimented with sweet caramel. Comes in three different sizes.",
-      price: "5.10",
+        "A refreshing mojito cocktail made with white rum, fresh mint leaves, lime juice, and soda water.",
+      price: "7.90",
       prices: [
         {
           size_id: 1,
-          price: "4.35",
+          price: "7.90",
         },
         {
           size_id: 2,
-          price: "4.85",
+          price: "9.50",
         },
         {
           size_id: 3,
-          price: "5.10",
+          price: "11.20",
         },
       ],
       image:
-        "https://images.pexels.com/photos/2067399/pexels-photo-2067399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        "https://images.pexels.com/photos/1647164/pexels-photo-1647164.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     },
     {
       id: 3,
-      name: "Espresso",
-      summary: "With 2 shots",
-      extras: ["2 shots"],
+      name: "Cosmopolitan",
+      summary: "Sophisticated Cocktail",
+      extras: ["vodka", "cranberry juice"],
       description:
-        "This is a beautiful cup of espresso, complimented with 2 shots. Comes in three different sizes.",
-      price: "6.20",
+        "A sophisticated cosmopolitan cocktail made with vodka, cranberry juice, triple sec, and lime juice.",
+      price: "9.20",
       prices: [
         {
           size_id: 1,
-          price: "6.20",
+          price: "9.20",
         },
         {
           size_id: 2,
-          price: "6.80",
+          price: "11.50",
         },
         {
           size_id: 3,
-          price: "7.10",
+          price: "13.80",
         },
       ],
       image:
-        "https://images.pexels.com/photos/302894/pexels-photo-302894.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        "https://images.pexels.com/photos/364376/pexels-photo-364376.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     },
     {
       id: 4,
-      name: "Americano",
-      summary: "With Milk",
-      extras: ["Milk"],
+      name: "Old Fashioned",
+      summary: "Classic Whiskey Cocktail",
+      extras: ["whiskey", "sugar", "bitters"],
       description:
-        "This is a beautiful cup of Americano, complimented with full fat milk. Comes in three different sizes.",
-      price: "5.35",
+        "A classic old fashioned cocktail made with whiskey, sugar, and bitters. Served with an orange twist.",
+      price: "10.50",
       prices: [
         {
           size_id: 1,
-          price: "5.35",
+          price: "10.50",
         },
         {
           size_id: 2,
-          price: "5.70",
+          price: "12.50",
         },
         {
           size_id: 3,
-          price: "6.50",
+          price: "14.50",
         },
       ],
       image:
-        "https://images.pexels.com/photos/6207297/pexels-photo-6207297.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        "https://images.pexels.com/photos/3962174/pexels-photo-3962174.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     },
   ],
 });
+
 
 export default DrinkStore;
 
 export const addNewDrink = (newDrink) => {
   DrinkStore.update((s) => {
-    if (!s.drinks.find(drink => drink.id === newDrink.id)) {
+    if (!s.drinks.find((drink) => drink.id === newDrink.id)) {
       s.drinks = [...s.drinks, newDrink];
     }
   });

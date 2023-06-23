@@ -1,3 +1,6 @@
+// Favorites.jsx
+
+import React, { useEffect, useRef, useState } from "react";
 import {
   IonButtons,
   IonCol,
@@ -13,13 +16,9 @@ import {
   IonToolbar,
   useIonRouter,
 } from "@ionic/react";
-import { useEffect, useRef, useState } from "react";
 import ViewDrinkCard from "../components/ViewDrinkCard";
 import { DrinkStore, FavoriteStore } from "../store";
-import {
-  getDrinks,
-  getFavoriteDrinks,
-} from "../store/Selectors";
+import { getDrinks, getFavoriteDrinks } from "../store/Selectors";
 
 const Favorites = () => {
   const cartRef = useRef();
@@ -52,7 +51,7 @@ const Favorites = () => {
   }, [favorites]);
 
   const fetchMore = async (e) => {
-    //	Increment the amount loaded by 6 for the next iteration
+    // Increment the amount loaded by 6 for the next iteration
     setAmountLoaded((prevAmount) => prevAmount + 6);
     e.target.complete();
   };
@@ -80,8 +79,8 @@ const Favorites = () => {
               <IonNote>
                 {searchResults && searchResults.length}{" "}
                 {searchResults.length > 1 || searchResults.length === 0
-                  ? " favorites"
-                  : " favorite"}{" "}
+                  ? "favorites"
+                  : "favorite"}{" "}
                 found
               </IonNote>
             </IonCol>

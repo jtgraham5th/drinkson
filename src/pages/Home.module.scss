@@ -7,6 +7,7 @@ ion-toolbar {
 }
 ion-header {
   background-color: rgb(87, 13, 19);
+ 
 }
 
 // ion-card-title {
@@ -16,4 +17,15 @@ ion-header {
 // }
 ion-card-subtitle {
   color: rgb(202, 211, 189);
+  
 }
+
+.outer-heading {
+  display: flex;
+  align-items: center;
+}
+
+.filter-icon {
+  margin-left: auto;
+}
+
