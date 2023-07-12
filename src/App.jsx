@@ -53,7 +53,8 @@ import CreateDrink from "./pages/CreateDrink.jsx";
 import ViewDrinkSearch from "./pages/ViewDrinkSearch";
 import Favorites from "./pages/Favorites.jsx";
 import SpecialOffers from "./pages/SpecialOffers.jsx";
-
+import Signup from "./login/Signup.jsx";
+import LoginPage from "./login/LoginPage.jsx";
 setupIonicReact();
 const tabs = [
   {
@@ -134,6 +135,8 @@ const App = () => {
             <Route exact path="/userprofile" component={UserProfile} />
             <Route exact path="/viewdrinksearch" component={ViewDrinkSearch} />
             <Route exact path="/specialoffers" component={SpecialOffers} />
+            <Route exact path="/Signup" component={Signup} />
+            <Route exact path="/LoginPage" component={LoginPage} />
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             {tabs.map((tab, barIndex) => {

@@ -1,0 +1,23 @@
+ion-header {
+  background-color: rgb(87, 13, 19);
+}
+
+.form-row {
+  margin-bottom: 1rem;
+}
+
+ion-input {
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+ion-button {
+  --background: rgb(87, 13, 19) !important;
+  --border-radius: 5px;
+  --box-shadow: none;
+  --color: white;
+}
